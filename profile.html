@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="text-center">
+
+    <h2>{{ current_user.display_name }}</h2>
+
+    <img src="/static/img/{{ current_user.avatar }}" 
+         width="150" 
+         style="border-radius:50%; margin-bottom:20px;">
+
+    <form method="post" action="/upload_avatar" enctype="multipart/form-data">
+        <input type="file" name="avatar" class="form-control mb-2">
+        <button class="btn btn-primary">Сменить фото</button>
+    </form>
+
+</div>
+
+<hr>
+
+<div class="row text-center">
+
+    <div class="col">
+        <h4>⭐ Избранное</h4>
+        <a href="/favorites" class="btn btn-outline-primary">Открыть</a>
+    </div>
+
+    <div class="col">
+        <h4>👁 Просмотренные</h4>
+        <a href="/watched" class="btn btn-outline-success">Открыть</a>
+    </div>
+
+    <div class="col">
+        <h4>🎬 Мои фильмы</h4>
+        <a href="/my_movies" class="btn btn-outline-warning">Открыть</a>
+    </div>
+
+    <div class="col">
+        <h4>⚙ Настройки</h4>
+        <a href="/settings" class="btn btn-outline-dark">Открыть</a>
+    </div>
+
+</div>
+
+{% endblock %}
