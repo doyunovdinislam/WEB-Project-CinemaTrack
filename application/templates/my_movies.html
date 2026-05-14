@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="mb-4">🎬 Мои фильмы</h2>
+
+<!-- ФОРМА -->
+<div class="card p-4 mb-4 shadow" style="border-radius:15px;">
+
+    <h4 class="mb-3">Добавить фильм</h4>
+
+    <form method="post" enctype="multipart/form-data">
+
+        <input name="title" class="form-control mb-2" placeholder="Название фильма" required>
+
+        <textarea name="description" class="form-control mb-2"
+                  placeholder="Описание" rows="3" required></textarea>
+
+        <input type="file" name="poster" class="form-control mb-2">
+        <input type="file" name="poster2" class="form-control mb-2">
+        <input type="file" name="video" class="form-control mb-3">
+
+        <input type="text" name="genre" class="form-control mb-2" placeholder="Жанр">
+        <input type="text" name="country" class="form-control mb-2" placeholder="Страна">
+        <input type="text" name="director" class="form-control mb-2" placeholder="Режиссёр">
+        <input type="text" name="duration" class="form-control mb-3" placeholder="Длительность">
+
+        <button class="btn btn-success w-100">➕ Добавить фильм</button>
+
+    </form>
+
+</div>
+
+<!-- ФИЛЬМЫ -->
+<div class="row">
+
+{% for m in movies %}
+<div class="col-md-3 mb-4">
+
+    <div class="movie-card shadow">
+
+        {% if can_edit_movie(m) %}
+        <div class="movie-actions">
+            <a href="/edit_movie/{{m.id}}" class="action-btn edit">✏</a>
+
+            <a href="/delete_movie/{{m.id}}"
+               class="action-btn delete"
+               onclick="return confirm('Удалить этот фильм?')">✖</a>
+        </div>
+        {% endif %}
+
+        {% if m.poster %}
+        <img src="/static/uploads/posters/{{m.poster}}" class="movie-img">
+        {% else %}
+        <img src="/static/img/default.png" class="movie-img">
+        {% endif %}
+
+        <div class="movie-overlay">
+            <div class="play-btn">▶</div>
+        </div>
+
+        <div class="p-2">
+            <h6 class="mb-1">{{m.title}}</h6>
+        </div>
+
+        <a href="/movie/{{m.id}}" class="stretched-link"></a>
+
+    </div>
+
+</div>
+{% endfor %}
+
+
+</div>
+
+{% endblock %}
